@@ -9,9 +9,19 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
     constructor(private readonly prismaService: PrismaService) { }
 
+    async create(planetData: Planet): Promise<Planet> {
+        const data = PlanetPrismaMapper.toDatabase(planetData);
+
+        const planet = await this.prismaService.planet.create({ data });
+
+        return PlanetPrismaMapper.toDomain(planet);
+    }
+
     async getAll(): Promise<Planet[]> {
         const planets = await this.prismaService.planet.findMany();
 
         return planets.map(PlanetPrismaMapper.toDomain);
     }
+
+
 }
