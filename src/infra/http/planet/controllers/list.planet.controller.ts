@@ -6,12 +6,12 @@ import { PlanetPresenter } from "src/infra/presenters/planet.presenter";
 @Controller("/planet")
 export class ListPlanetController {
 
-    constructor(private readonly listPlanet: ListPlanetUseCase) { }
+    constructor(private readonly planetService: ListPlanetUseCase) { }
 
     @Get()
     @HttpCode(200)
     async handler(@Res() response: Response) {
-        const result = await this.listPlanet.execute();
+        const result = await this.planetService.execute();
 
         if (result.isLeft()) {
             throw new InternalServerErrorException('Internal Server Error.');

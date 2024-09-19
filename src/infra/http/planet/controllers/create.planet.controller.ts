@@ -15,7 +15,7 @@ export class CreatePlanetController {
         const result = await this.planetService.execute({ ...dataPlanet });
 
         if (result.isLeft()) {
-            throw new InternalServerErrorException('Internal server error');
+            throw new InternalServerErrorException('Internal server error.');
         }
 
         return response.json(PlanetPresenter.toHTTP(result.value));
