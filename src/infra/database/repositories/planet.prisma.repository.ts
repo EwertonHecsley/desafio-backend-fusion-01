@@ -23,5 +23,13 @@ export class PlanetPrismaRepository implements PlanetRepository {
         return planets.map(PlanetPrismaMapper.toDomain);
     }
 
+    async findById(id: string): Promise<Planet | null> {
+        const planet = await this.prismaService.planet.findFirst({ where: { id } });
 
+        if (!planet) {
+            return null;
+        }
+
+        return PlanetPrismaMapper.toDomain(planet);
+    }
 }
