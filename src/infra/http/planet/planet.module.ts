@@ -7,6 +7,8 @@ import { CreatePlanetController } from "./controllers/create.planet.controller";
 import { CreatePlanetUseCase } from "src/domain/planet/use-case/create.planet";
 import { FindPlanetController } from "./controllers/find.planet.controller";
 import { FindPlanetUseCase } from "src/domain/planet/use-case/find.planet";
+import { EditPlanetController } from "./controllers/edit.planet.controller";
+import { EditPlanetUseCase } from "src/domain/planet/use-case/edit.planet";
 
 @Module({
     imports: [DatabaseModule],
@@ -31,9 +33,16 @@ import { FindPlanetUseCase } from "src/domain/planet/use-case/find.planet";
                 return new FindPlanetUseCase(planetRepository);
             },
             inject: [PlanetRepository]
+        },
+        {
+            provide: EditPlanetUseCase,
+            useFactory: (planetRepository: PlanetRepository) => {
+                return new EditPlanetUseCase(planetRepository);
+            },
+            inject: [PlanetRepository]
         }
     ],
-    controllers: [ListPlanetController, CreatePlanetController, FindPlanetController]
+    controllers: [ListPlanetController, CreatePlanetController, FindPlanetController, EditPlanetController]
 })
 
 export class PlanetModule { }

@@ -32,4 +32,19 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
         return PlanetPrismaMapper.toDomain(planet);
     }
+
+    async update(planetData: Planet, id: string): Promise<Planet | null> {
+        const planet = await this.findById(id);
+
+        if (!planet) {
+            return null;
+        }
+
+        const updatedPlanet = await this.prismaService.planet.update({
+            where: { id },
+            data: PlanetPrismaMapper.toDatabase(planetData),
+        });
+
+        return PlanetPrismaMapper.toDomain(updatedPlanet);
+    }
 }
