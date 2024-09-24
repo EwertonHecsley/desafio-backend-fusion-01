@@ -47,4 +47,8 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
         return PlanetPrismaMapper.toDomain(updatedPlanet);
     }
+
+    async delete(id: string): Promise<void> {
+        await this.prismaService.planet.delete({ where: { id } });
+    }
 }
