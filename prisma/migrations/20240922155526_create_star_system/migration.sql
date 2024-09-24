@@ -1,5 +1,5 @@
 -- AlterTable
-ALTER TABLE "planets" ADD COLUMN     "starSystemId" UUID;
+ALTER TABLE "planets" ADD COLUMN "starSystemId" UUID;
 
 -- CreateTable
 CREATE TABLE "star_systems" (
@@ -7,8 +7,9 @@ CREATE TABLE "star_systems" (
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
 
-    CONSTRAINT "star_systems_pkey" PRIMARY KEY ("id")
-);
+
+CONSTRAINT "star_systems_pkey" PRIMARY KEY ("id") );
 
 -- AddForeignKey
-ALTER TABLE "planets" ADD CONSTRAINT "planets_starSystemId_fkey" FOREIGN KEY ("starSystemId") REFERENCES "star_systems"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "planets"
+ADD CONSTRAINT "planets_starSystemId_fkey" FOREIGN KEY ("starSystemId") REFERENCES "star_systems" ("id") ON DELETE SET NULL ON UPDATE CASCADE;
