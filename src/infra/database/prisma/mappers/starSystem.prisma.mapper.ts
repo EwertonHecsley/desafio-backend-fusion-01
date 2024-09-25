@@ -1,6 +1,5 @@
-import { StarSystem as StarSystemDatabase, Planet as PlanetDatabase } from "@prisma/client";
+import { StarSystem as StarSystemDatabase } from "@prisma/client";
 import Identity from "src/core/generics/identity.generic";
-import Planet from "src/domain/planet/entity/planet.entity";
 import StarSystem from "src/domain/starSystem/entity/system.entity";
 import { PrismaService } from "../prisma.service";
 
@@ -14,14 +13,9 @@ export class StarSystemPrismaMapper {
             include: { listPlanets: true }
         });
 
-        const planetsMapped = starSystemWithPlanets.listPlanets.map((planetData: PlanetDatabase) => {
-            return Planet.create(planetData, new Identity(planetData.id));
-        });
-
         return StarSystem.create({
             name: starSystemWithPlanets.name,
-            description: starSystemWithPlanets.description,
-            listPlanets: planetsMapped
+            description: starSystemWithPlanets.description
         },
             new Identity(starSystemWithPlanets.id));
     }
