@@ -9,8 +9,7 @@ export class StarSystemPrismaMapper {
         const prismaService = new PrismaService();
 
         const starSystemWithPlanets = await prismaService.starSystem.findUnique({
-            where: { id: entity.id },
-            include: { listPlanets: true }
+            where: { id: entity.id }
         });
 
         return StarSystem.create({
